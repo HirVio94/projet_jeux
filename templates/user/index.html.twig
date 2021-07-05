@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!{% endblock %}
+
+{% block body %}
+
+    <form action={{ path('login') }} method="POST">
+        {% if error %}
+            {% if error.message == 'Bad credentials.' %}
+                <span class="error">Nom utilisateur inconnu</span>
+            {% elseif error.message == 'The presented password is invalid.' %}
+                <span class="error">Mot de passe incorrect</span>
+            {% endif %}
+            
+        {% endif %}
+        
+        <label for="id_username" 
+        >Nom utilisateur</label>
+        <input name="_username" id="id_username" type="text" {% if lastUsername %} value={{lastUsername}} {% endif %}>
+        <label for="id_password">Mot de passe</label>
+        <input id="id_password" name="_password" type="password">
+        <button type="submit">Valider</button>
+    </form>
+
+{% endblock %}

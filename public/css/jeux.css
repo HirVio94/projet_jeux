@@ -1,0 +1,13 @@
+div.container_jeux{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+}
+
+div.container_jeux div.container_info_jeux ul{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
