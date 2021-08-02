@@ -1,0 +1,46 @@
+<div>
+	<label for="id_jeu">Jeux</label>
+	<select id="id_jeu" name="jeu">
+        {% for jeu in jeux %}
+            <option value={{jeu.id}} {% if avi is defined and jeu.id == avi.jeux.id %} selected {% endif %}
+            >
+                {{ jeu.titre }}
+            </option>
+        {% endfor %}
+    </select>
+
+</div>
+
+<div>
+    <label for="id_user">Utilisateur</label>
+    <select id="id_user" name="user">
+        {% for user in users %}
+            <option value={{ user.id}} {% if avi is defined and user.id == avi.user.id %} selected {% endif %}
+            >
+                {{ user.username }}
+            </option>
+        {% endfor %}
+    </select>
+
+</div>
+
+<div>
+    <label for="id_message">Message</label>
+    <textarea id="id_message" name="message">{% if avi is defined %}{{ avi.message }}{% endif %}
+    </textarea>
+
+</div>
+
+<div>
+    <label for="id_note">Note</label>
+    <select id="id_note" name="note">
+        {% for note in notes %}
+            <option value={{ note }} {% if avi is defined and note == avi.note %} selected {% endif %}
+            >
+                {{ note }}
+            </option>
+        {% endfor %}
+    </select>
+
+</div>
+<button class="btn">{{ button_label|default('Save') }}</button>

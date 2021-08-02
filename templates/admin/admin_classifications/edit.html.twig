@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Classifications{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Edit Classifications</h1>
+
+    {{ include('admin/admin_classifications/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin.classifications') }}">back to list</a>
+
+    {{ include('admin/admin_classifications/_delete_form.html.twig') }}
+
+</section>
+{% endblock %}

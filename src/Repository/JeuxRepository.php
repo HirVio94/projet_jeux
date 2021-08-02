@@ -18,6 +18,42 @@ class JeuxRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Jeux::class);
     }
+    public function findAllAndAllFields()
+    {
+
+        $tabJeux = $this->findAll();
+
+        foreach ($tabJeux as $jeux) {
+
+
+            $classification = $jeux->getClassification()->getLibelle();
+            $dev = $jeux->getDeveloppeur()->getLibelle();
+            $genres = $jeux->getGenre();
+            foreach ($genres as $genre) {
+                $genre->getLibelle();
+            }
+            $plateFormes = $jeux->getPlateForme();
+            foreach ($plateFormes as $plateForme) {
+                $plateForme->getLibelle();
+            }
+            $avis = $jeux->getAvis();
+            $moyenneNotes = 0;
+
+            foreach ($avis as $avi) {
+                $note = $avi->getNote();
+                $message = $avi->getMessage();
+                $moyenneNotes += $note;
+            }
+            if (count($avis) > 0) {
+                $nbrNotes = count($avis);
+                $moyenneNotes = $moyenneNotes / $nbrNotes;
+                $jeux->setNoteMoyenne($moyenneNotes);
+            }else{
+                $jeux->setNoteMoyenne(0); 
+            }
+        }
+        return $tabJeux;
+    }
 
     // /**
     //  * @return Jeux[] Returns an array of Jeux objects

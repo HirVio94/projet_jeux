@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Genres{% endblock %}
+
+{% block body %}
+    <section>
+    <h1>Edit Genres</h1>
+
+    {{ include('admin/admin_genre/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin.genre') }}">back to list</a>
+
+    {{ include('admin/admin_genre/_delete_form.html.twig') }}
+
+    </section>
+{% endblock %}

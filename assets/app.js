@@ -11,6 +11,14 @@ import './styles/app.css';
 // start the Stimulus application
 import './bootstrap';
 
+import Accueil from './Containers/MainAccueil';
+import JeuxFocus from './Containers/JeuxFocus';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './Containers/App';
 
+
+ReactDOM.render(React.createElement(App), document.querySelector('#app'));
+// const e = React.createElement;
 // const domContainer = document.querySelector('#like_button_container');
 // ReactDOM.render(e(LikeButton), domContainer);

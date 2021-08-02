@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Avis{% endblock %}
+
+{% block body %}
+    <h1>Create new Avis</h1>
+    <form action={{path('admin.avis.new.validate')}} method="post">
+    {{ include('admin/admin_avis/_form.html.twig') }}
+    </form>
+    <a href="{{ path('admin.avis') }}">back to list</a>
+{% endblock %}

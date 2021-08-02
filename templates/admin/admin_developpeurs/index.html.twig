@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Developpeurs index
+{% endblock %}
+
+{% block body %}
+	<section>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>Libelle_developpeur</th>
+					<th>actions</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for developpeur in developpeurs %}
+					<tr>
+						<td>{{ developpeur.id }}</td>
+						<td>{{ developpeur.libelle }}</td>
+						<td>
+							
+							<a href="{{ path('admin.developpeurs.edit', {'id': developpeur.id}) }}">edit</form>
+							{% include "admin/admin_developpeurs/_delete_form.html.twig" %}
+						</td>
+					</tr>
+				{% else %}
+					<tr>
+						<td colspan="3">no records found</td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+
+		<a href="{{ path('admin.developpeurs.new') }}">Create new</a>
+	</section>
+{% endblock %}

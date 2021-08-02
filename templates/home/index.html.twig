@@ -1,29 +1,37 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeController!{% endblock %}
+{% block title %}Hello HomeController!
+{% endblock %}
 
 {% block body %}
-    
-    {% for jeu in tabJeux %}
-        <div class="container_jeux">
-            <div class="image_jeux">
-                <img src={{ jeu.couverturePath}} alt="couverture de {{ jeu.titre }}"/>
-            </div>
-            <div class="container_info_jeux">
-                <h3>{{ jeu.titre }}</h3>
-                <ul>
-                    <li> <h3>Genre : {% for genre in jeu.genre %}
-                        {{ genre.libelle }}
-                    {% endfor %}</h3></li>
-                    <li> <h3>Plate-forme : {% for plateforme in jeu.plateForme %}
-                        {{ plateforme.libelle }}
-                    {% endfor %}</h3></li>
-                    <li> <h3>Classification : {{ jeu.classification.libelle}}</h3></li>
-                    <li><h3> Date de sortie : {{ jeu.dateSortie.format('d-m-Y')}}</h3></li>
-
-                <ul>
-            </div>
-
-        </div>
-    {% endfor %}
+	<div id="app"></div>
+	{% if page is defined %}
+		<input type="hidden" name="page" id="page" value={{page}}/>
+	{% endif %}
+	{# {% for jeu in tabJeux %}
+	        <div class="container_jeux">
+	            <div class="image_jeux">
+	                <img src={{ jeu.couverturePath}} alt="couverture de {{ jeu.titre }}"/>
+	            </div>
+	            <div class="container_info_jeux">
+	                <div class="note_titre">
+	                    <h3>{{ jeu.titre }}</h3>
+	                    <h4>Note des utilisateurs : {% if jeu.avis |length > 0 %}{{jeu.noteMoyenne}} / 20 {% endif %}
+	                    </h4>
+	                </div>
+	                <ul>
+	                    <li> <h4>Genre : {% for genre in jeu.genre %}
+	                        {{ genre.libelle }}
+	                    {% endfor %}</h4></li>
+	                    <li> <h4>Plate-forme : {% for plateforme in jeu.plateForme %}
+	                        {{ plateforme.libelle }}
+	                    {% endfor %}</h4></li>
+	                    <li> <h4>Classification : {{ jeu.classification.libelle}}</h4></li>
+	                    <li><h4> Date de sortie : {{ jeu.dateSortie.format('d-m-Y')}}</h4></li>
+	
+	                <ul>
+	            </div>
+	
+	        </div>
+	    {% endfor %} #}
 {% endblock %}

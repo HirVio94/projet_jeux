@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New PlateFormes{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Create new PlateFormes</h1>
+
+    {{ include('admin/admin_plate_forme/_form.html.twig') }}
+
+    <a href="{{ path('admin.plateforme') }}">back to list</a>
+</section>
+{% endblock %}

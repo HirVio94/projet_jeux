@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Jeux index{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Jeux index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Développeur</th>
+                <th>Genres</th>
+                <th>Plate-formes</th>
+                <th>Video_path</th>
+                <th>Couverture_path</th>
+                <th>Date_sortie</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for jeu in jeux %}
+
+            <tr>
+                <td>{{ jeu.id }}</td>
+                <td>{{ jeu.titre }}</td>
+                <td>{{ jeu.description }}</td>
+                <td>{{ jeu.developpeur.libelle }}</td>
+                <td>{% for genre in jeu.genre %}
+                    {{ genre.libelle }}
+                {% endfor %}</td>
+                <td>{% for plateforme in jeu.plateForme %}
+                    {{ plateforme.libelle }}
+                {% endfor %}</td>
+                <td>{{ jeu.videoPath }}</td>
+                <td>{{ jeu.couverturePath }}</td>
+                <td>{{ jeu.classification.libelle }}</td>
+                <td>{{ jeu.dateSortie.format('Y-m-d')}}</td>
+                <td>
+                    {% include ("admin/admin_jeux/_delete_form.html.twig") %}
+                    <a href="{{ path('admin.jeux.edit', {'id': jeu.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin.jeux.new') }}">Create new</a>
+    </section>
+{% endblock %}

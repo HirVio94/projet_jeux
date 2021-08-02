@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Genres{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Genres</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ genre.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle_genre</th>
+                <td>{{ genre.libelleGenre }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin.genre') }}">back to list</a>
+
+    <a href="{{ path('admin.genre.edit', {'id': genre.id}) }}">edit</a>
+
+    {{ include('admin/admin_genre/_delete_form.html.twig') }}
+</section>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PlateFormes{% endblock %}
+
+{% block body %}
+<section>
+    <h1>PlateFormes</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ plate_forme.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle_plateforme</th>
+                <td>{{ plate_forme.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin.plateforme') }}">back to list</a>
+
+    <a href="{{ path('admin.plateforme.edit', {'id': plate_forme.id}) }}">edit</a>
+
+    {{ include('admin/admin_plate_forme/_delete_form.html.twig') }}
+</section>
+{% endblock %}

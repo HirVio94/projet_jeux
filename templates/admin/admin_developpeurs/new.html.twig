@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Developpeurs{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Create new Developpeurs</h1>
+
+    {{ include('admin/admin_developpeurs/_form.html.twig') }}
+
+    <a href="{{ path('admin.developpeurs') }}">back to list</a>
+    </section>
+{% endblock %}

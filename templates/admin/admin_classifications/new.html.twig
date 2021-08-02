@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Classifications{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Create new Classifications</h1>
+
+    {{ include('admin/admin_classifications/_form.html.twig') }}
+
+    <a href="{{ path('admin.classifications') }}">back to list</a>
+</section>
+{% endblock %}

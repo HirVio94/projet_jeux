@@ -1,0 +1,85 @@
+{# {{ form_row(form.titre) }}
+{{ form_row(form.description)}}
+{{ form_row(form.video_path)}} #}
+{# {{ form_row(form.couverture_path)}} #}
+{# {{ form_row(form.date_sortie)}} #}
+<div>
+	<label for="id_titre">Titre</label>
+	<input  id="id_titre" name="titre" {% if jeux is defined %}value="{{jeux.titre}}{% endif %}
+	 ">
+
+</div>
+<div>
+	<label for="id_description">description</label>
+	<textarea  id="id_description" name="description" value="">{% if jeux is defined %}{{jeux.description}}{% endif %}
+	 </textarea>
+
+</div>
+<div>
+	<label for="id_video">Video path</label>
+	<input type="text" id="id_video" name="video" {% if jeux is defined %} value="{{jeux.videoPath}}{% endif %}
+	">
+
+</div>
+<div>
+	<div class="image_jeux"> 
+        <span>Couverture actuel</span>
+        <img {% if jeux is defined %}src={{jeux.couverturePath}} alt="couverture de {{ jeux.titre}}{% endif %}
+		 ">
+    </div> 
+    <input type="file" accept="image/png, image/jpeg" onChange="majImgJeux()" name="image">
+	<button type="button" onClick="resetImg()">Annuler</button>
+</div>
+
+<div>
+	<label for="id_date">Date de sortie</label>
+	<input type="date" id="id_date" name="date" {% if jeux is defined %}value={{jeux.dateSortie|date('Y-m-d')}}{% endif %}
+	 >
+
+</div>
+<div>
+	<label for="id_genre">Genres</label>
+	<select name="genre[]" id="id_genre" multiple>
+		{% for genre in genres %}
+			<option value={{genre.id}} {% if jeux is defined %}{% for jeuGenre in jeux.genre %} {% if jeuGenre.id == genre.id %} selected {% endif %} {% endfor %}{% endif %}
+			>{{genre.libelle}}</option>
+		{% endfor %}
+	</select>
+</div>
+
+<div>
+	<label for='id_plateforme'>Plate-formes</label>
+	<select name="plateforme[]" id="id_plateforme" multiple>
+		{% for plateforme in plateformes %}
+			<option value={{plateforme.id}} {% if jeux is defined %}{% for jeuPlateforme in jeux.plateForme %} {% if jeuPlateforme.id == plateforme.id %} selected {% endif %} {% endfor %}{% endif %}
+			>{{plateforme.libelle}}
+			</option>
+		{% endfor %}
+
+	</select>
+</div>
+
+<div>
+	<label for='id_dev'>Développeur</label>
+	<select name="dev" id="id_dev">
+		{% for dev in devs %}
+			<option value={{dev.id}}  {% if jeux is defined %}{% if jeux.developpeur.id == dev.id %} selected {% endif %}{% endif %}
+			 >{{dev.libelle}}
+			</option>
+		{% endfor %}
+
+	</select>
+</div>
+<div>
+	<label for="id_classification">Classification</label>
+	<select name="classification" id="id_classification">
+	{% for classification in classifications %}
+		<option value={{classification.id}} {% if jeux is defined %}{% if jeux.classification.id == classification.id %}selected{% endif %}{% endif %}
+		
+		>{{classification.libelle}}</option>
+	{% endfor %}
+	</select>
+</div>
+<input type="hidden" {% if jeux is defined %}value={{jeux.couverturePath}}{% endif %}
+  name="couverture">
+<button class="btn">{{ button_label|default('Save') }}</button>

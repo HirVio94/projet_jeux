@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello JeuxController!{% endblock %}
+
+{% block body %}
+
+
+<div id="app">
+    
+</div>
+{% if page is defined %}
+<input type="hidden" name="page" id="page" value={{page}}/>
+{% endif %}
+
+<input type="hidden" value={{jeuxId}} name="jeuId" id="jeu">
+{% endblock %}

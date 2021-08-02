@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}PlateFormes index{% endblock %}
+
+{% block body %}
+<section>
+    <h1>PlateFormes index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Libelle_plateforme</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for plate_forme in plate_formes %}
+            <tr>
+                <td>{{ plate_forme.id }}</td>
+                <td>{{ plate_forme.libelle }}</td>
+                <td>
+                    <a href="{{ path('admin.plateforme.show', {'id': plate_forme.id}) }}">show</a>
+                    <a href="{{ path('admin.plateforme.edit', {'id': plate_forme.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin.plateforme.new') }}">Create new</a>
+    </section>
+{% endblock %}

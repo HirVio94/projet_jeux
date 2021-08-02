@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Jeux
+{% endblock %}
+
+{% block body %}
+	<section>
+		<h1>Create new Jeux</h1>
+		<form class="form_admin" action={{ path('admin.jeux.newValidate') }} enctype="multipart/form-data" method="post">
+			{{ include('admin/admin_jeux/_form.html.twig') }}
+		</form>
+		<a href="{{ path('admin.jeux') }}">back to list</a>
+	</section>
+{% endblock %}

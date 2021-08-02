@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello AdminController!{% endblock %}
+
+{% block body %}
+<section>
+		<form action={{ path('admin.user.uptatedUser') }} method="post" class="form_admin">
+			<div>
+
+				<label for="id_username">Nom utilisateur</label>
+				<input type="text" name="username" id="id_username" value={{ user.username }} readonly>
+			</div>
+			<div>
+				<label for="id_email">Email</label>
+				<input type="text" name="email" id="id_email" value={{ user.email }} readonly>
+			</div>
+			<div>
+				<label for="id_nom">Nom</label>
+				<input type="text" name="nom" id="id_nom" value={{ user.nom }}>
+			</div>
+			<div>
+				<label for="id_prenom">Prénom</label>
+				<input type="text" name="prenom" id="id_prenom" value={{ user.prenom }}>
+			</div>
+			<div>
+				<label for="id_date_naissance">Date de naissance</label>
+				<input type="date" name="date_naissance" id="id_date_naissance" {% if user.dateNaissance != '' %} value={{ user.dateNaissance|date('Y-m-d') }}{% endif %}
+				>
+			</div>
+			<div id="btn_submit">
+				<input type="hidden" name="id_user" value={{ user.id}}>
+				<button type="submit">Ajouter utilisateur</button>
+			</div>
+
+		</form>
+	</section>
+{% endblock %}

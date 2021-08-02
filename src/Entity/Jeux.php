@@ -64,10 +64,18 @@ class Jeux
      */
     private $plate_forme;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Avis::class, mappedBy="jeux")
+     */
+    private $avis;
+    
+    private float $noteMoyenne;
+
     public function __construct()
     {
         $this->genre = new ArrayCollection();
         $this->plate_forme = new ArrayCollection();
+        $this->avis = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -204,6 +212,45 @@ class Jeux
     {
         $this->plate_forme->removeElement($plateForme);
 
+        return $this;
+    }
+
+    /**
+     * @return Collection|Avis[]
+     */
+    public function getAvis(): Collection
+    {
+        return $this->avis;
+    }
+
+    public function addAvi(Avis $avi): self
+    {
+        if (!$this->avis->contains($avi)) {
+            $this->avis[] = $avi;
+            $avi->setJeux($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAvi(Avis $avi): self
+    {
+        if ($this->avis->removeElement($avi)) {
+            // set the owning side to null (unless already changed)
+            if ($avi->getJeux() === $this) {
+                $avi->setJeux(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getNoteMoyenne(): ?float{
+        return $this->noteMoyenne;
+    }
+
+    public function setNoteMoyenne($noteMoyenne): ?self{
+        $this->noteMoyenne = $noteMoyenne;
         return $this;
     }
 }

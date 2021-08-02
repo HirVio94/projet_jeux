@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Classifications{% endblock %}
+
+{% block body %}
+<section>
+    <h1>Classifications</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ classification.id }}</td>
+            </tr>
+            <tr>
+                <th>Libelle_classification</th>
+                <td>{{ classification.libelle }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin.classifications') }}">back to list</a>
+
+    <a href="{{ path('admin.classifications.edit', {'id': classification.id}) }}">edit</a>
+
+    {{ include('admin/admin_classifications/_delete_form.html.twig') }}
+</section>
+{% endblock %}
