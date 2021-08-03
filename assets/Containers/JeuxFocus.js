@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 import NavBar from './NavBar';
 import JeuDetail from '../Components/JeuDetail';
+import ListeJeuxRecommende from './ListeJeuxRecommende';
 
 class JeuxFocus extends React.Component {
     constructor(props) {
@@ -55,7 +56,7 @@ class JeuxFocus extends React.Component {
 
         });
         this.setState({ jeuxRecommende: jeuxRecommende });
-        // console.log(this.state.jeuxRecommende);
+        console.log('jeuxRcommende', this.state.jeuxRecommende);
 
 
     }
@@ -65,11 +66,24 @@ class JeuxFocus extends React.Component {
             return <JeuDetail jeu={this.state.jeu} />
         }
     }
+
+    verifJeuxRecommende(){
+        console.log('jeuxRecommende verif avant if', this.state.jeuxRecommende);
+        console.log('jeuxrecommende length', this.state.jeuxRecommende.length);
+        if ( this.state.jeuxRecommende.length > 0){
+            console.log('jeuxRecommende verif', this.state.jeuxRecommende);
+            return <ListeJeuxRecommende listeJeux={this.state.jeuxRecommende}/>;
+        }
+    }
     render() {
         return (
             <div>
                 <NavBar />
-                {this.verifJeu()}
+                <div>
+                    {this.verifJeu()}
+                    {this.verifJeuxRecommende()}
+                </div>
+                
             </div>
         )
     }
