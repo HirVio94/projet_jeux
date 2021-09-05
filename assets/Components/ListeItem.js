@@ -4,13 +4,22 @@ class ListeItem extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            item: props.item,
+            item: '',
         }
+    }
+    componentDidMount(){
+        this.setState({item: this.props.item});
+    }
+
+    handleClick(){
+        window.history.replaceState(null, '', '/');
+        this.props.callback(this.state.item);
+
     }
 
     render(){
         return(
-            <li><a href="">{this.state.item}</a></li>
+            <li onClick={this.handleClick.bind(this)}>{this.state.item.libelle}</li>
         )
     }
 }

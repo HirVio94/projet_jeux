@@ -29,24 +29,36 @@ class AdminPlateFormeController extends AbstractController
     /**
      * @Route("/new", name="admin.plateforme.new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, PlateFormesRepository $plateFormesRepository): Response
     {
         $plateForme = new PlateFormes();
         $form = $this->createForm(PlateFormesType::class, $plateForme);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($plateForme);
-            $entityManager->flush();
+            $plateformeDb = $plateFormesRepository->findOneBy(['libelle_plateforme' => $plateForme->getLibelle()]);
+            if (!$plateformeDb) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($plateForme);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('admin.plateforme', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('admin.plateforme', [], Response::HTTP_SEE_OTHER);
+            }else{
+                return $this->renderForm('admin/admin_plate_forme/new.html.twig', [
+                    'plate_forme' => $plateForme,
+                    'form' => $form,
+                    'section'=> 'administration',
+                    'error' => true
+
+                ]);
+            }
         }
 
         return $this->renderForm('admin/admin_plate_forme/new.html.twig', [
             'plate_forme' => $plateForme,
             'form' => $form,
-            'section' => 'administration'
+            'section' => 'administration',
+            'error' => false
         ]);
     }
 
@@ -87,7 +99,7 @@ class AdminPlateFormeController extends AbstractController
      */
     public function delete(Request $request, PlateFormes $plateForme): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$plateForme->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $plateForme->getId(), $request->request->get('_token'))) {
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->remove($plateForme);
             $entityManager->flush();

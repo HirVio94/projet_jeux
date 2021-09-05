@@ -3,9 +3,10 @@
 {% block title %}Avis index{% endblock %}
 
 {% block body %}
+<main>
 <section>
     <h1>Avis index</h1>
-
+    <a href="{{ path('admin.avis.new') }}" class="ajouter">Ajouter avis</a>
     <table class="table">
         <thead>
             <tr>
@@ -19,11 +20,12 @@
         {% for avi in avis %}
             <tr>
                 <td>{{ avi.id }}</td>
-                <td>{{ avi.message }}</td>
+                <td><p>{{ avi.message }}</p></td>
                 <td>{{ avi.note }}</td>
                 <td>
+                    
+                    <a href="{{ path('admin.avis.edit', {'id': avi.id}) }}" class="modifier">Modifier</a>
                     {% include "admin/admin_avis/_delete_form.html.twig" %}
-                    <a href="{{ path('admin.avis.edit', {'id': avi.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -34,6 +36,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('admin.avis.new') }}">Create new</a>
+    
 </section>
+</main>
 {% endblock %}

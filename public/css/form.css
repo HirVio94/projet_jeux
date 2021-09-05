@@ -1,0 +1,179 @@
+p.error{
+    color: red;
+    display: none;
+    margin: 0;
+}
+label.requis::after{
+    content: ' *';
+}
+select.select_filtre{
+    display: none;
+}
+form#form_filtre{
+    display: none;
+    width: 80%;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    border: 1px solid black;
+    height: 100px;
+    background-color: white;
+}
+form#form_filtre > div{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-around;
+}
+form#form_filtre button{
+    background-color: #00BCD4;
+    width: 150px;
+    height: 30px;
+    outline: none;
+    border: 1px solid black;
+}
+form#avis_client_form{
+    display: none;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 10px;
+    border: 1px solid black;
+    height: 150px;
+    background-color: white;
+    width: 100%;
+
+}
+form#avis_client_form div#textarea_message{
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+form#avis_client_form div#textarea_message textarea{
+    height: 100px;
+    width: 80%;
+    resize: none;
+}
+form#avis_client_form div#select_note{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 15%;
+}
+form#avis_client_form div#select_note select{
+    width: 50%;
+}
+form#avis_client_form button{
+    background-color: #00e1ff;
+    outline: none;
+    border: 1px solid black;
+    width: 15%;
+    height: 30px;
+}
+
+button#button_donner_avis{
+    background-color: #FFCC33;
+    outline: none;
+    border: 1px solid black;
+    height: 30px;
+    width: 115px;
+}
+button#button_donner_avis:hover{
+    box-shadow: 0px 0px 3px white;
+}
+
+main#main_login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+main#main_login h2{
+    width: 50%;
+    display: flex;
+    justify-content: flex-start;
+    color: white;
+}
+
+main#main_login form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 50%;
+    height: 200px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+main#main_login form div#username_password{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+
+}
+main#main_login form button, main#main_new_user form button{
+    background-color: #FFCC33;
+    outline: none;
+    border: 1px solid black;
+    height: 30px;
+    width: 110px;
+}
+
+main#main_new_user h2{
+    width: 60%;
+    color: white;
+}
+
+main#main_new_user form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 60%;
+    height: 500px;
+    border: 1px solid black;
+    background-color: white;
+}
+
+main#main_new_user form div#form_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+}
+
+div#form_authentification, div#form_infos_option{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 45%;
+}
+div#form_authentification{
+    height: 350px;
+}
+div#form_infos_option{
+    height: 200px;
+}
+div#form_infos_option div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+div.form_infos_authentification{
+    display: flex;
+    flex-direction: column;
+}
+
+div#form_username, div#form_email, div#form_password, div#form_password_confirm{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

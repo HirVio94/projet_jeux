@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>
 			{% block title %}Welcome!
 			{% endblock %}
@@ -10,6 +10,7 @@
 
 		<link rel="stylesheet" href="/css/application.css" type="text/css"/>
 		<link rel="stylesheet" href="/css/jeux.css" type="text/css"/>
+		<link rel="stylesheet" href="/css/form.css" type="text/css"/>
 		<script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
 		{% if section == 'administration' %}
 			<link rel="stylesheet" href="/css/admin.css" type="text/css"/>
@@ -17,11 +18,11 @@
 		{% endif %}
 		<script defer src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" integrity="sha384-haqrlim99xjfMxRP6EWtafs0sB1WKcMdynwZleuUSwJR0mDeRYbhtY+KPMr+JL6f" crossorigin="anonymous"></script>
 		{# <script src="/build/runtime.js" defer></script>
-								<script src="/build/app.js" defer></script> #}
-		
+										<script src="/build/app.js" defer></script> #}
+
 		{{ encore_entry_script_tags('app') }}
 		{# Run `composer require symfony/webpack-encore-bundle`
-										           and uncomment the following Encore helpers to start using Symfony UX #}
+												           and uncomment the following Encore helpers to start using Symfony UX #}
 		{% block stylesheets %}
 			{#{{ encore_entry_link_tags('app') }}#}
 		{% endblock %}
@@ -31,12 +32,15 @@
 		{% endblock %}
 	</head>
 	<body>
-		<header>
-			{% if section == 'administration' %}
-
+		<input type="hidden" name="user" id="user" {% if app.user %}value={{app.user.id}}{% endif %}
+		 />
+		{% if section == 'administration' %}
+			<header>
 				<div id="div_container">
 					<div id="div_titre">
-						<h1><a href={{path('admin') }}>Dashboard administration</a></h1>
+						<h1>
+							<a href={{path('admin') }}>Dashboard administration</a>
+						</h1>
 					</div>
 
 					<div id="div_header_container">
@@ -54,55 +58,10 @@
 						</div>
 					</div>
 				</div>
-			{% else %}
+			</header>
 
-				<div id="div_container">
-					<div id="div_titre">
-						<h1>JeuxProject</h1>
-					</div>
-
-					<div id="div_header_container">
-						<div id="div_recherche">
-							<input type="text" placeholder="rechercher un jeu">
-							<i class="fas fa-search"></i>
-						</div>
-						<div id="div_authentification">
-
-
-							{% if app.user %}
-								<i class="fas fa-user-circle"></i>
-								{% if is_granted('ROLE_ADMIN') %}
-									<div>
-										<a href={{ path('admin') }}>Accès backoffice</a>
-									</div>
-								{% endif %}
-								<div id="div_deconnexion">
-									<a href={{ path('logout')}}>Se deconnecter</a>
-								</div>
-							{% else %}
-								<div id="div_connexion">
-									<a href={{ path('login') }}>Se connecter</a>
-								</div>
-								<div id="div_creer_compte">
-									<a href="">Créer un compte</a>
-								</div>
-
-							{% endif %}
-
-
-						</div>
-					</div>
-				</div>
-
-			{% endif %}
-
-
-		</header>
-
-		
-		<main>
-			{% if section == 'administration' %}
-				<aside>
+			
+				<nav>
 					<ul>
 						<li><a href={{ path('admin.user') }}>Utilisateurs</a></li>
 						<li><a href={{ path('admin.jeux') }}>Jeux</a></li>
@@ -115,9 +74,11 @@
 						<li><a href={{ path('admin.developpeurs') }}>Développeurs</a></li>
 
 					</ul>
-				</aside>
+				</nav>
+				
 			{% endif %}
 			{% block body %}{% endblock %}
-		</main>
+		
+
 	</body>
 </html>

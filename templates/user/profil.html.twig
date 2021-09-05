@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!
+{% endblock %}
+
+{% block body %}
+	<div id="app"></div>
+	{% if page is defined %}
+		<input type="hidden" name="page" id="page" value={{page}}/>
+	{% endif %}
+	
+	<main>
+		<h1>Mon profil</h1>
+		<div>
+			<div>
+				<ul>
+					<li>Nom utilisateur : {{app.user.username}}</li>
+					<li>Email : {{app.user.email}}</li>
+				</ul>
+			</div>
+			<div>
+				<ul>
+					<li>Nom : {{app.user.nom}}</li>
+					<li>Prénom : {{app.user.prenom}}</li>
+					<li>Date de naissance : {% if app.user.dateNaissance %}{{app.user.dateNaissance|date('d-m-Y')}}{% endif %}</li>
+				</ul>
+			</div>
+		</div>
+
+		<div>
+			<a href={{path('user.modifProfil', {id: app.user.id})}}>Modifier profil</a>
+		</div>
+	</main>
+
+{% endblock %}

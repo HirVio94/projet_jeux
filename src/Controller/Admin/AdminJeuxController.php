@@ -65,14 +65,18 @@ class AdminJeuxController extends AbstractController
 
         //     return $this->redirectToRoute('admin.jeux', [], Response::HTTP_SEE_OTHER);
         // }
-
+        $error = false;
+        if(filter_input(INPUT_GET, 'error')){
+            $error = filter_input(INPUT_GET, 'error');
+        }
         return $this->renderForm('admin/admin_jeux/new.html.twig', [
             'form' => $form,
             'genres' => $genres,
             'devs' => $devs,
             'plateformes' => $plateformes,
             'classifications' => $classifications,
-            'section' => 'administration'
+            'section' => 'administration',
+            'error' => $error
         ]);
     }
     /**
@@ -81,17 +85,22 @@ class AdminJeuxController extends AbstractController
      * @param Request $request
      * @return Response
      */
-    public function newValidation(Request $request): Response{
+    public function newValidation(Request $request): Response
+    {
         $newJeux = $this->validationForm($request);
 
         $jeux = new Jeux();
         $jeux = $this->setJeux($newJeux, $jeux);
+        $jeuxDb = $this->jeuxRepository->findOneBy(['titre' => $jeux->getTitre()]);
+        if (!$jeuxDb) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($jeux);
+            $em->flush();
 
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($jeux);
-        $em->flush();
-
-        return $this->redirectToRoute('admin.jeux');
+            return $this->redirectToRoute('admin.jeux');
+        }else{
+            return $this->redirectToRoute('admin.jeux.new', ['error' => true]);
+        }
     }
 
     /**
@@ -145,14 +154,14 @@ class AdminJeuxController extends AbstractController
         // dump($jeux);
         $jeuxEdit = $this->validationForm($request);
 
-        
+
         $genres = $jeux->getGenre();
-        foreach($genres as $genre){
+        foreach ($genres as $genre) {
             $jeux->removeGenre($genre);
         }
-        
+
         $plateformes = $jeux->getPlateForme();
-        foreach($plateformes as $plateforme){
+        foreach ($plateformes as $plateforme) {
             $jeux->removePlateForme($plateforme);
         }
         $this->setJeux($jeuxEdit, $jeux);
@@ -262,7 +271,8 @@ class AdminJeuxController extends AbstractController
         ];
     }
 
-    private function setJeux(Array $tabJeux, Jeux $jeux){
+    private function setJeux(array $tabJeux, Jeux $jeux)
+    {
         $dev = $this->developpeursRepository->findOneBy(['id' => $tabJeux['dev']]);
         $classification = $this->classificationsRepository->findOneBy(['id' => $tabJeux['classification']]);
 

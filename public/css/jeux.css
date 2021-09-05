@@ -1,3 +1,4 @@
+
 div.container_jeux{
     display: flex;
     flex-direction: row;
@@ -11,7 +12,7 @@ div.container_jeux{
 div.container_jeux:hover{
     background-color: white;
     cursor: pointer;
-    box-shadow: 0px 0px 3px black;
+    box-shadow: 0px 0px 10px white;
 }
 
 div.container_jeux div.container_info_jeux ul{
@@ -31,6 +32,7 @@ div.image_jeux{
 div.image_jeux img{
     width: 150px;
     height: 200px;
+    border: 1px solid black;
 }
 div.note_titre{
     display: flex;
@@ -41,9 +43,15 @@ div.note_titre{
 
 
 div#jeux_detail{
-    width: 50%;
+    width: 70%;
     display: flex;
     flex-direction: column;
+    border: 1px solid black;
+    align-items: center;
+    background-color: white;
+}
+div#jeux_detail > div{
+    width: 90%;
 }
 div#jeux_detail_header{
     display: flex;
@@ -53,9 +61,10 @@ div#jeux_detail_header{
 div#couverture img{
     width: 150px;
     height: 200px;
+    border: 1px solid black;
 }
 div#description{
-    width: 70%;
+    width: 75%;
 }
 
 div#jeux_detail_header div#note{
@@ -65,7 +74,229 @@ div#jeux_detail_header div#note{
 div#jeux_detail_header div#note h3{
     margin-top: 0;
 }
+div#jeux_detail_footer ul{
+    list-style: none;
+    font-size: 1.1em;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 0;
+}
+div#video{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0 10px 0;
+}
 div#video iframe{
+    width: 80%;
+    height: 300px;
+    border: 1px solid black;
+}
+
+div.jeux_vignette div.jeux_vignette_image img{
+    width: 100px;
+    height: 150px;
+    border: 1px solid black;
+}
+div.jeux_vignette div.jeux_vignette_image{
+    display: flex;
+    align-items: center;
+}
+
+div.jeux_vignette{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: lightgray;
+    cursor: pointer;
+    margin: 5px 0 5px 0;
+    height: 152px;
+}
+div.jeux_vignette:hover{
+    background-color: white;
+    box-shadow: 0px 0px 10px white;
+}
+div.jeux_vignette ul{
+    list-style: none;
+    padding: 0;
+}
+div.jeux_vignette h3{
     width: 100%;
-    height: 400px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+div.jeux_vignette h3 span.span_jeu_titre{
+    width: 65%;
+}
+div.jeux_vignette h3 span.span_jeu_note{
+    width: 30%;
+}
+
+div#main_jeux_focus{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+div#jeux_avis{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
+
+div#list_jeux_recommende{
+    width: 30%;
+}
+div#list_jeux_recommende h1{
+    color: white;
+}
+div.infos_jeux{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 80%;
+}
+div.infos_jeux h3{
+    margin-top: 0;
+}
+div#avis_user{
+    width: 70%;
+}
+div#avis_user h1{
+    color: white;
+}
+div#avis{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+div.avis_liste_item{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+}
+div.avis_liste_item div{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+div.avis_item{
+    display: flex !important;
+    flex-direction: row !important;
+    width: 100% !important;
+    margin: 5px 0 5px 0;
+    border: 1px solid black;
+    
+}
+div.avis_detail{
+    display: flex;
+    flex-direction: column;
+    width: 80%;
+}
+div.avis_user{
+    display: flex;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 20% !important;
+    background-color: lightgray;
+}
+div.avis_note{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    width: 100%;
+    background-color: red;
+}
+div.avis_note h3{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    width: 90%;
+    color: white;
+}
+div.avis_message{
+    background-color: white;
+}
+
+@media  screen and (max-width: 1600px) {
+    div.container_jeux{
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 1400px){
+    div.container_jeux{
+        width: 70%;
+    }
+}
+
+@media screen and (max-width: 1150px) {
+    div.container_jeux{
+        width: 80%;
+    }
+}
+
+@media screen and (max-width: 1050px) {
+    div.container_jeux{
+        width: 85%;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    div.info_jeux{
+        display: none;
+    }
+    div.container_jeux{
+        flex-direction: column-reverse;
+        width: 50%;
+    }
+    div.note_titre{
+        flex-direction: column;
+        width: 100%;
+    }
+    div.container_info_jeux{
+        width: 100%;
+    }
+    div.image_jeux{
+        width: 100%;
+    }
+    div.image_jeux img{
+        width: 100%;
+        height: 500px;
+    }
+}
+
+@media screen and (max-width: 750px){
+    div.container_jeux{
+        width: 60%;
+    }
+    div.image_jeux img{
+        width: 100%;
+        height: 400px;
+    }
+}
+@media screen and (max-width: 430px) {
+    div.container_jeux{
+        width: 75%;
+    }
+}
+
+@media screen and (max-width: 345px){
+    div.container_jeux{
+        width: 80%;
+    }
+    div.image_jeux img{
+        height: 350px;
+    }
+}
+@media screen and (max-width: 330px){
+    div.container_jeux{
+        width: 90%;
+    }
 }

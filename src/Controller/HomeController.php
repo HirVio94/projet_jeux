@@ -24,7 +24,7 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig', [
             'tabJeux' => $tabJeux,
             'section' => 'client',
-            'page' => 'home'
+            'page' => 'accueil'
         ]);
     }
 }

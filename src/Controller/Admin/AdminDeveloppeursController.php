@@ -30,24 +30,36 @@ class AdminDeveloppeursController extends AbstractController
     /**
      * @Route("/new", name="admin.developpeurs.new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, DeveloppeursRepository $developpeursRepository): Response
     {
         $developpeur = new Developpeurs();
         $form = $this->createForm(DeveloppeursType::class, $developpeur);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($developpeur);
-            $entityManager->flush();
+            $developpeurDb = $developpeursRepository->findOneBy(['libelle_developpeur' => $developpeur->getLibelle()]);
+            if(!$developpeurDb){
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($developpeur);
+                $entityManager->flush();
 
-            return $this->redirectToRoute('admin.developpeurs', [], Response::HTTP_SEE_OTHER);
+                return $this->redirectToRoute('admin.developpeurs', [], Response::HTTP_SEE_OTHER);
+            }else{
+                return $this->renderForm('admin/admin_developpeurs/new.html.twig', [
+                    'developpeur' => $developpeur,
+                    'form' => $form,
+                    'section' => 'administration',
+                    'error' => true
+                ]);
+            }
+            
         }
 
         return $this->renderForm('admin/admin_developpeurs/new.html.twig', [
             'developpeur' => $developpeur,
             'form' => $form,
-            'section' => 'administration'
+            'section' => 'administration',
+            'error' => false
         ]);
     }
 

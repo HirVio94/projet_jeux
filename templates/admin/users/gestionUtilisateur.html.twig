@@ -4,69 +4,77 @@
 {% endblock %}
 
 {% block body %}
-	{% if updated %}
-		<div class="updated">
-			<span>Utilisateur mis à jour!</span>
-		</div>
-	{% endif %}
+	<main>
+		{% if updated %}
+			<div class="updated">
+				<span>Utilisateur mis à jour!</span>
+			</div>
+		{% endif %}
 
-	{% if deleted %}
-		<div class="deleted">
-			<span>Utilisateur supprimé!</span>
-		</div>
-	{% endif %}
+		{% if deleted %}
+			<div class="deleted">
+				<span>Utilisateur supprimé!</span>
+			</div>
+		{% endif %}
 
 
-	<section>
-		<a href={{ path('admin.user.addUser')}} style="display: none">Ajouter utilisateur</a>
-		<table>
-			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Nom Utilisateur</th>
-					<th>Email</th>
-					<th>Nom</th>
-					<th>Prénom</th>
-					<th>Date de naissance</th>
-				</tr>
-			</thead>
-			<tbody>
-				{% for utilisateur in tabUsers %}
+		<section>
+			<h1>Gestions utilisateur</h1>
+			<a href={{ path('admin.user.addUser')}} class="ajouter">Ajouter utilisateur</a>
+			<table>
+				<thead>
 					<tr>
-
-						<td>{{ utilisateur.id }}
-						</td>
-						<td>{{ utilisateur.username}}
-						</td>
-						<td>{{ utilisateur.email }}
-						</td>
-						<td>{{ utilisateur.nom }}
-						</td>
-						<td>{{ utilisateur.prenom }}
-						</td>
-						<td>
-							{% if utilisateur.dateNaissance != '' %}
-								{{ utilisateur.dateNaissance|date('j-m-Y') }}
-							{% endif %}
-
-						</td>
-						<td class="td_modifier">
-							<form action={{ path('admin.user.updateUser') }} method="post">
-								<input type="hidden" name="id" value={{ utilisateur.id }}>
-								<button type="submit">Modifier</button>
-							</form>
-						</td>
-						<td class="td_supprimer">
-							<form action={{ path('admin.user.deleteUser') }} method="post">
-								<input type="hidden" name="id" value={{ utilisateur.id }}>
-								<button type="submit">Supprimer</button>
-							</form>
-						</td>
-
+						<th>Id</th>
+						<th>Nom Utilisateur</th>
+						<th>Email</th>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Date de naissance</th>
+						<th class="action">Actions</th>
 					</tr>
-				{% endfor %}
+				</thead>
+				<tbody>
+					{% for utilisateur in tabUsers %}
+						<tr>
 
-			</tbody>
-		</table>
-	</section>
+							<td>
+								{{ utilisateur.id }}
+							</td>
+							<td>
+							{{ utilisateur.username}}
+							</td>
+							<td>
+							{{ utilisateur.email }}
+							</td>
+							<td>
+							{{ utilisateur.nom }}
+							</td>
+							<td>
+							{{ utilisateur.prenom }}
+							</td>
+							<td>
+								{% if utilisateur.dateNaissance != '' %}
+									{{ utilisateur.dateNaissance|date('j-m-Y') }}
+								{% endif %}
+
+							</td>
+							<td class="actions">
+								<form action={{ path('admin.user.updateUser') }} method="post" class="form_table">
+									<input type="hidden" name="id" value={{ utilisateur.id }}>
+									<button type="submit" class="modifier">Modifier</button>
+								</form>
+								<form action={{ path('admin.user.deleteUser') }} method="post" class="form_table">
+									<input type="hidden" name="id" value={{ utilisateur.id }}>
+									<button type="submit" class="supprimer">Supprimer</button>
+								</form>
+							</td>
+							
+
+						</tr>
+					{% endfor %}
+
+				</tbody>
+			</table>
+		</section>
+	</main>
 {% endblock %}

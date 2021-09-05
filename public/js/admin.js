@@ -13,5 +13,7 @@ function majImgJeux(){
 
 function resetImg(event){
     img.src = imgOriginePath;
+    input = $('input[type=file]')[0];
+    input.value = '';
     event.preventDefault();
 }

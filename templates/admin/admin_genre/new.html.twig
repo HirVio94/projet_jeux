@@ -1,13 +1,19 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Genres{% endblock %}
+{% block title %}Ajouter genre{% endblock %}
 
 {% block body %}
+<main>
 <section>
-    <h1>Create new Genres</h1>
-
+    <h1>Ajouter un genre</h1>
+    <a href="{{ path('admin.genre') }}" class="valider">Retour</a>
+    {% if error %}
+    <span>Genre déja enregistré</span>
+    {% endif %}
+    
     {{ include('admin/admin_genre/_form.html.twig') }}
 
-    <a href="{{ path('admin.genre') }}">back to list</a>
+    
 </section>
+</main>
 {% endblock %}

@@ -3,13 +3,13 @@
 {% block title %}Edit Jeux{% endblock %}
 
 {% block body %}
+<main>
 <section>
-    <h1>Edit Jeux</h1>
+    <h1>Modifier Jeux</h1>
+    <a href="{{ path('admin.jeux') }}" class="valider">Retour</a>
     <form action={{path('admin.jeux.edit.validate', {'id': jeux.id})}} enctype="multipart/form-data" method="post" class="form_admin">
     {{ include('admin/admin_jeux/_form.html.twig', {'button_label': 'Update'}) }}
     </form>
-    <a href="{{ path('admin.jeux') }}">back to list</a>
-
-    {# {{ include('admin/admin_jeux/_delete_form.html.twig') }} #}
 </section>
+</main>
 {% endblock %}

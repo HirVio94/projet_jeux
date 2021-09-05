@@ -29,7 +29,7 @@ class AdminClassificationsController extends AbstractController
     /**
      * @Route("/new", name="admin.classifications.new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, ClassificationsRepository $classificationsRepository): Response
     {
         $classification = new Classifications();
         $form = $this->createForm(ClassificationsType::class, $classification);
@@ -37,8 +37,19 @@ class AdminClassificationsController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($classification);
-            $entityManager->flush();
+            $classificationDb = $classificationsRepository->findOneBy(['libelle_classification' => $classification->getLibelle()]);
+            if(!$classificationDb){
+                $entityManager->persist($classification);
+                $entityManager->flush();
+            }else{
+                return $this->renderForm('admin/admin_classifications/new.html.twig', [
+                    'classification' => $classification,
+                    'form' => $form,
+                    'secion' => 'administration',
+                    'error' => true
+                ]);
+            }
+            
 
             return $this->redirectToRoute('admin.classifications', [], Response::HTTP_SEE_OTHER);
         }
@@ -46,7 +57,8 @@ class AdminClassificationsController extends AbstractController
         return $this->renderForm('admin/admin_classifications/new.html.twig', [
             'classification' => $classification,
             'form' => $form,
-            'section' => 'administration'
+            'section' => 'administration',
+            'error' => false
         ]);
     }
 

@@ -3,22 +3,24 @@
 {% block title %}Jeux index{% endblock %}
 
 {% block body %}
+<main>
 <section>
     <h1>Jeux index</h1>
-
+    <a href={{ path('admin.jeux.new') }} class="ajouter">Ajouter jeux</a>
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Titre</th>
-                <th>Description</th>
-                <th>Développeur</th>
-                <th>Genres</th>
-                <th>Plate-formes</th>
-                <th>Video_path</th>
-                <th>Couverture_path</th>
-                <th>Date_sortie</th>
-                <th>actions</th>
+                <th id="id">Id</th>
+                <th id="titre">Titre</th>
+                <th id="description">Description</th>
+                <th id="dev">Développeur</th>
+                <th id="genres">Genres</th>
+                <th id="plateforme">Plate-formes</th>
+                <th id="video">Video_path</th>
+                <th id="couverture">Couverture_path</th>
+                <th>Classification</th>
+                <th id="date">Date_sortie</th>
+                <th class="actions">actions</th>
             </tr>
         </thead>
         <tbody>
@@ -27,7 +29,7 @@
             <tr>
                 <td>{{ jeu.id }}</td>
                 <td>{{ jeu.titre }}</td>
-                <td>{{ jeu.description }}</td>
+                <td><p>{{ jeu.description }}</p></td>
                 <td>{{ jeu.developpeur.libelle }}</td>
                 <td>{% for genre in jeu.genre %}
                     {{ genre.libelle }}
@@ -35,13 +37,14 @@
                 <td>{% for plateforme in jeu.plateForme %}
                     {{ plateforme.libelle }}
                 {% endfor %}</td>
-                <td>{{ jeu.videoPath }}</td>
-                <td>{{ jeu.couverturePath }}</td>
+                <td><p>{{ jeu.videoPath }}</p></td>
+                <td><p>{{ jeu.couverturePath }}</p></td>
                 <td>{{ jeu.classification.libelle }}</td>
                 <td>{{ jeu.dateSortie.format('Y-m-d')}}</td>
-                <td>
-                    {% include ("admin/admin_jeux/_delete_form.html.twig") %}
-                    <a href="{{ path('admin.jeux.edit', {'id': jeu.id}) }}">edit</a>
+                <td class="action">
+                    
+                    <a href="{{ path('admin.jeux.edit', {'id': jeu.id}) }}" class="modifier">Modifier</a>
+                    {{ include('admin/admin_jeux/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -52,6 +55,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('admin.jeux.new') }}">Create new</a>
+    
     </section>
+    </main>
 {% endblock %}

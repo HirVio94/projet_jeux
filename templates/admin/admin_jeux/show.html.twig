@@ -1,44 +1,47 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Jeux{% endblock %}
+{% block title %}Jeux
+{% endblock %}
 
 {% block body %}
-<section>
-    <h1>Jeux</h1>
+	<main>
+		<section>
+			<h1>Jeux</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ jeux.id }}</td>
-            </tr>
-            <tr>
-                <th>Titre</th>
-                <td>{{ jeux.titre }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ jeux.description }}</td>
-            </tr>
-            <tr>
-                <th>Video_path</th>
-                <td>{{ jeux.videoPath }}</td>
-            </tr>
-            <tr>
-                <th>Couverture_path</th>
-                <td>{{ jeux.couverturePath }}</td>
-            </tr>
-            <tr>
-                <th>Date_sortie</th>
-                <td>{{ jeux.dateSortie ? jeux.dateSortie|date('Y-m-d') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+			<table class="table">
+				<tbody>
+					<tr>
+						<th>Id</th>
+						<td>{{ jeux.id }}</td>
+					</tr>
+					<tr>
+						<th>Titre</th>
+						<td>{{ jeux.titre }}</td>
+					</tr>
+					<tr>
+						<th>Description</th>
+						<td>{{ jeux.description }}</td>
+					</tr>
+					<tr>
+						<th>Video_path</th>
+						<td>{{ jeux.videoPath }}</td>
+					</tr>
+					<tr>
+						<th>Couverture_path</th>
+						<td>{{ jeux.couverturePath }}</td>
+					</tr>
+					<tr>
+						<th>Date_sortie</th>
+						<td>{{ jeux.dateSortie ? jeux.dateSortie|date('Y-m-d') : '' }}</td>
+					</tr>
+				</tbody>
+			</table>
 
-    <a href="{{ path('admin.jeux') }}">back to list</a>
+			<a href="{{ path('admin.jeux') }}">back to list</a>
 
-    <a href="{{ path('admin.jeux.edit', {'id': jeux.id}) }}">edit</a>
+			<a href="{{ path('admin.jeux.edit', {'id': jeux.id}) }}">edit</a>
 
-    {{ include('admin/admin_jeux/_delete_form.html.twig') }}
-    </section>
+			{{ include('admin/admin_jeux/_delete_form.html.twig') }}
+		</section>
+	</main>
 {% endblock %}

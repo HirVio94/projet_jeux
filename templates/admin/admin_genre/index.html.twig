@@ -3,15 +3,16 @@
 {% block title %}Genres index{% endblock %}
 
 {% block body %}
+<main>
     <section>
     <h1>Genres index</h1>
-
+    <a href="{{ path('admin.genre.new') }}" class="ajouter">Ajouter un genre</a>
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
                 <th>Libelle_genre</th>
-                <th>actions</th>
+                <th class="actions">actions</th>
             </tr>
         </thead>
         <tbody>
@@ -19,9 +20,9 @@
             <tr>
                 <td>{{ genre.id }}</td>
                 <td>{{ genre.libelle }}</td>
-                <td>
-                    <a href="{{ path('admin.genre.show', {'id': genre.id}) }}">show</a>
-                    <a href="{{ path('admin.genre.edit', {'id': genre.id}) }}">edit</a>
+                <td class="action">
+                    <a href="{{ path('admin.genre.edit', {'id': genre.id}) }}" class="modifier">Modifier</a>
+                    {{ include('admin/admin_genre/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -32,6 +33,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('admin.genre.new') }}">Create new</a>
+    
     </section>
+</main>
 {% endblock %}

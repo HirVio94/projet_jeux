@@ -24,4 +24,8 @@ class JeuxController extends AbstractController
             'page' => $page
         ]);
     }
+
+    public function listeJeux(){
+        $page = 'listeJeux';
+    }
 }

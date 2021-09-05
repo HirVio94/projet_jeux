@@ -1,25 +1,38 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!{% endblock %}
+{% block title %}Hello UserController!
+{% endblock %}
 
 {% block body %}
+	<div id="app"></div>
+	{% if page is defined %}
+		<input type="hidden" name="page" id="page" value={{page}}/>
+	{% endif %}
+	<main id="main_login">
+		<h2>Se connecter</h2>
+		<form action={{ path('login') }} method="POST">
+			{% if error %}
+				{% if error.message == 'Bad credentials.' %}
+					<span class="error">Nom utilisateur inconnu</span>
+				{% elseif error.message == 'The presented password is invalid.' %}
+					<span class="error">Mot de passe incorrect</span>
+				{% endif %}
 
-    <form action={{ path('login') }} method="POST">
-        {% if error %}
-            {% if error.message == 'Bad credentials.' %}
-                <span class="error">Nom utilisateur inconnu</span>
-            {% elseif error.message == 'The presented password is invalid.' %}
-                <span class="error">Mot de passe incorrect</span>
-            {% endif %}
-            
-        {% endif %}
-        
-        <label for="id_username" 
-        >Nom utilisateur</label>
-        <input name="_username" id="id_username" type="text" {% if lastUsername %} value={{lastUsername}} {% endif %}>
-        <label for="id_password">Mot de passe</label>
-        <input id="id_password" name="_password" type="password">
-        <button type="submit">Valider</button>
-    </form>
+			{% endif %}
+			<div id="username_password">
+				<div>
+					<label for="id_username">Nom utilisateur</label>
+					<input name="_username" id="id_username" type="text" {% if lastUsername %} value={{lastUsername}} {% endif %}>
+				</div>
+				<div>
+					<label for="id_password">Mot de passe</label>
+					<input id="id_password" name="_password" type="password">
+				</div>
+
+
+			</div>
+			<button type="submit">Valider</button>
+		</form>
+	</main>
 
 {% endblock %}

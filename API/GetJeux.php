@@ -24,7 +24,31 @@ if(filter_input(INPUT_GET, 'idGenre')){
     $genre = filter_input(INPUT_GET, 'idGenre');
     $jeux = $dao->getJeuxByIdGenre($genre);
 }else{
-    $jeux = $dao->getJeux();
+    if(filter_input(INPUT_GET, 'plateforme')){
+        $plateforme = filter_input(INPUT_GET, 'plateforme');
+        if($plateforme == 'Tous les jeux'){
+            $jeux = $dao->getJeux();
+        }else{
+            $jeux = $dao->getJeuxByPlatformeName($plateforme);
+        }
+    }else{
+        if(filter_input(INPUT_GET, 'titre')){
+            $titre = filter_input(INPUT_GET, 'titre');
+            $jeux = $dao->getJeuxByTitres($titre);
+        }else{
+            $jeux = $dao->getJeux();
+        }
+        
+    }
+    //     if($dao->getJeuxByPlatformeName($plateforme)){
+    //         $jeux = $dao->getJeuxByPlatformeName($plateforme);
+    //     }else{
+    //         $jeux = $dao->getJeux();
+    //     }
+    // }else{
+    //     $jeux = $dao->getJeux();
+    // }
+    
 }
 
 $jeuxListe = [];
@@ -33,6 +57,7 @@ foreach($jeux as $jeu){
     $plateformes = $dao->getPlateformeByJeuxId($jeu['id']);
     $classification = $dao->getClassificationByJeuxId($jeu['id']);
     $avis = $dao->getAvisByJeuxId($jeu['id']);
+    $developpeur = $dao->getDevelopeurByJeuxId($jeu['id']);
     $noteMoyenne = null;
 
     if(count($avis) > 0){
@@ -43,6 +68,7 @@ foreach($jeux as $jeu){
         $noteMoyenne = number_format($noteMoyenne / count($avis), 2);
     }
 
+    $jeu['developpeur'] = $developpeur;
     $jeu['noteMoyenne'] = $noteMoyenne;
     $jeu['genres'] = $genres;
     $jeu['plateformes'] = $plateformes;
@@ -58,7 +84,14 @@ if(filter_input(INPUT_GET,'sortBy')){
         case 'note': 
             usort($jeuxListe, 'trieParNote');
             break;
+        case 'recent':
+            usort($jeuxListe, 'trieRecent');
+            break;
     }
+}
+if(filter_input(INPUT_GET,'limit')){
+    $limit = filter_input(INPUT_GET,'limit', FILTER_SANITIZE_NUMBER_INT);
+    array_splice($jeuxListe, $limit);
 }
 
 
@@ -83,6 +116,17 @@ function trieParNote($a, $b){
         }else{
             return 1;
         }
+    }
+}
+
+function trieRecent($a, $b){
+    $aId = $a['id'];
+    $bId = $b['id'];
+
+    if($aId > $bId){
+        return -1;
+    }else{
+        return 1;
     }
 }
 ?>

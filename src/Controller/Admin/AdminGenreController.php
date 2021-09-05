@@ -29,7 +29,7 @@ class AdminGenreController extends AbstractController
     /**
      * @Route("/new", name="admin.genre.new", methods={"GET","POST"})
      */
-    public function new(Request $request): Response
+    public function new(Request $request, GenresRepository $genresRepository): Response
     {
         $genre = new Genres();
         $form = $this->createForm(GenresType::class, $genre);
@@ -37,16 +37,29 @@ class AdminGenreController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($genre);
-            $entityManager->flush();
+            $genreDb = $genresRepository->findOneBy(['libelle_genre' => $genre->getLibelle()]);
+            if(!$genreDb){
+                $entityManager->persist($genre);
+                $entityManager->flush();
+                return $this->redirectToRoute('admin.genre', [], Response::HTTP_SEE_OTHER);
+            }else{
+                return $this->renderForm('admin/admin_genre/new.html.twig', [
+                    'genre' => $genre,
+                    'form' => $form,
+                    'section' => 'administration',
+                    'error' => true
+                ]);
+            }
+            
 
-            return $this->redirectToRoute('admin.genre', [], Response::HTTP_SEE_OTHER);
+            
         }
 
         return $this->renderForm('admin/admin_genre/new.html.twig', [
             'genre' => $genre,
             'form' => $form,
-            'section' => 'administration'
+            'section' => 'administration',
+            'error' => false
         ]);
     }
 

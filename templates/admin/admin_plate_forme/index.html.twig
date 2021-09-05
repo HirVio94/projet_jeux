@@ -3,9 +3,10 @@
 {% block title %}PlateFormes index{% endblock %}
 
 {% block body %}
+<main>
 <section>
     <h1>PlateFormes index</h1>
-
+    <a href="{{ path('admin.plateforme.new') }}" class="ajouter">Ajouter plateforme</a>
     <table class="table">
         <thead>
             <tr>
@@ -20,8 +21,8 @@
                 <td>{{ plate_forme.id }}</td>
                 <td>{{ plate_forme.libelle }}</td>
                 <td>
-                    <a href="{{ path('admin.plateforme.show', {'id': plate_forme.id}) }}">show</a>
-                    <a href="{{ path('admin.plateforme.edit', {'id': plate_forme.id}) }}">edit</a>
+                    <a href="{{ path('admin.plateforme.edit', {'id': plate_forme.id}) }}" class="modifier">Modifier</a>
+                    {{ include('admin/admin_plate_forme/_delete_form.html.twig') }}
                 </td>
             </tr>
         {% else %}
@@ -32,6 +33,7 @@
         </tbody>
     </table>
 
-    <a href="{{ path('admin.plateforme.new') }}">Create new</a>
+    
     </section>
+    </main>
 {% endblock %}

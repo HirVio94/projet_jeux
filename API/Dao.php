@@ -86,6 +86,98 @@ class Dao{
         return $stat->fetchAll();
     }
 
+    public function getAvis($idJeux){
+        $requete = 'SELECT * FROM avis WHERE jeux_id = :jeuxId ORDER BY id DESC';
+        $stat = $this->connect->prepare($requete);
+        $stat->bindParam('jeuxId', $idJeux);
+        $stat->execute();
+        $stat->setFetchMode(PDO::FETCH_ASSOC);
+        return $stat->fetchAll();
+
+    }
+
+    public function getUserByIdUser($idUser){
+        $requete = 'SELECT id, username, roles, email, nom, prenom, date_naissance FROM user WHERE id = :idUser';
+        $stat = $this->connect->prepare($requete);
+        $stat->bindParam('idUser', $idUser);
+        $stat->execute();
+        $stat->setFetchMode(PDO::FETCH_ASSOC);
+        return $stat->fetch();
+    }
+
+    public function getUserByUsername($username){
+        $requete = 'SELECT username, roles, email, nom, prenom, date_naissance FROM user WHERE username = :username';
+        $stat = $this->connect->prepare($requete);
+        $stat->bindParam('username', $username);
+        $stat->execute();
+        $stat->setFetchMode(PDO::FETCH_ASSOC);
+        return $stat->fetch();
+    }
+
+    public function getJeuxByPlatformeName($libelle_plateforme){
+        $requete = 'SELECT jeux.id, developpeur_id, classification_id, titre, description, video_path, couverture_path, date_sortie FROM `jeux` INNER JOIN jeux_plate_formes ON jeux.id = jeux_id INNER JOIN plate_formes ON plate_formes_id = plate_formes.id WHERE libelle_plateforme = :libelle_plateforme';
+        $stat = $this->connect->prepare($requete);
+        $stat->bindParam('libelle_plateforme', $libelle_plateforme);
+        $stat->execute();
+        $stat->setFetchMode(PDO::FETCH_ASSOC);
+        return $stat->fetchAll();
+    }
+
+    public function getJeuxByTitres($titre){
+        $requete = 'SELECT * FROM `jeux` WHERE titre LIKE "%":titre"%"';
+        $stat = $this->connect->prepare($requete);
+        $stat->bindParam('titre', $titre);
+        $stat->execute();
+        $stat->setFetchMode(PDO::FETCH_ASSOC);
+        return $stat->fetchAll();
+    }
+
+    public function getJeuxByTitre($titre){
+        $requete = "SELECT * FROM `jeux` WHERE titre = :titre";
+        $stat = $this->connect->prepare($requete);
+        $stat->bindParam('titre', $titre);
+        $stat->execute();
+        $stat->setFetchMode(PDO::FETCH_ASSOC);
+        return $stat->fetch();
+    }
+
+    public function addAvis($jeuxId, $message, $note, $userId){
+        $requete = 'INSERT INTO `avis`(`jeux_id`, `message`, `note`, `user_id`) VALUES (:jeuxId, :message, :note, :userId)';
+        $stat = $this->connect->prepare($requete);
+        $stat->bindParam('jeuxId', $jeuxId);
+        $stat->bindParam('message', $message);
+        $stat->bindParam('note', $note);
+        $stat->bindParam('userId', $userId);
+        $stat->execute();
+    }
+
+    public function getGenres(){
+        $requete = 'SELECT * from genres';
+        $stat = $this->connect->prepare($requete);
+        $stat->execute();
+        $stat->setFetchMode(PDO::FETCH_ASSOC);
+        return $stat->fetchAll();
+    }
+
+    public function getDeveloppeurs(){
+        $requete ='SELECT * from developpeurs';
+        $stat = $this->connect->prepare($requete);
+        $stat->execute();
+        $stat->setFetchMode(PDO::FETCH_ASSOC);
+        return $stat->fetchAll();
+    }
+
+    public function getJeuxByPlateformeIdGenre($idGenre, $plateforme){
+        $requete = 'SELECT SELECT jeux.id, developpeur_id, classification_id, titre, description, video_path, couverture_path, date_sortie, genres.libelle_genre, genres.id AS genre_id, plate_formes.id AS plateforme_id, plate_formes.libelle_plateforme FROM `jeux` INNER JOIN jeux_genres ON jeux.id = jeux_genres.jeux_id INNER JOIN genres ON jeux_genres.genres_id = genres.id INNER JOIN jeux_plate_formes ON jeux.id = jeux_plate_formes.jeux_id INNER JOIN plate_formes ON jeux_plate_formes.plate_formes_id = plate_formes.id WHERE genres.id = :idGenre AND plate_formes.libelle_plateforme = :plateforme';
+        $stat = $this->connect->prepare($requete);
+        
+        $stat->bindParam('idGenre', $idGenre);
+        $stat->bindParam('plateforme', $plateforme);
+        $stat->execute();
+        $stat->setFetchMode(PDO::FETCH_ASSOC);
+        return $stat->fetchAll();
+
+    }
 
 }
 

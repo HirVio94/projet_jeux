@@ -1,28 +1,31 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Developpeurs{% endblock %}
+{% block title %}Developpeurs
+{% endblock %}
 
 {% block body %}
-<section>
-    <h1>Developpeurs</h1>
+	<main>
+		<section>
+			<h1>Developpeurs</h1>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ developpeur.id }}</td>
-            </tr>
-            <tr>
-                <th>Libelle_developpeur</th>
-                <td>{{ developpeur.libelle }}</td>
-            </tr>
-        </tbody>
-    </table>
+			<table class="table">
+				<tbody>
+					<tr>
+						<th>Id</th>
+						<td>{{ developpeur.id }}</td>
+					</tr>
+					<tr>
+						<th>Libelle_developpeur</th>
+						<td>{{ developpeur.libelle }}</td>
+					</tr>
+				</tbody>
+			</table>
 
-    <a href="{{ path('admin.developpeurs') }}">back to list</a>
+			<a href="{{ path('admin.developpeurs') }}">back to list</a>
 
-    <a href="{{ path('admin_developpeurs.edit', {'id': developpeur.id}) }}">edit</a>
+			<a href="{{ path('admin_developpeurs.edit', {'id': developpeur.id}) }}">edit</a>
 
-    {{ include('admin/admin_developpeurs/_delete_form.html.twig') }}
-    </section>
+			{{ include('admin/admin_developpeurs/_delete_form.html.twig') }}
+		</section>
+	</main>
 {% endblock %}

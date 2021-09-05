@@ -1,13 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Developpeurs{% endblock %}
+{% block title %}New Developpeurs
+{% endblock %}
 
 {% block body %}
-<section>
-    <h1>Create new Developpeurs</h1>
+	<main>
+		<section>
+			<h1>Create new Developpeurs</h1>
+			<a href="{{ path('admin.developpeurs') }}" class="valider">Retour</a>
+			{% if error %}
+				<span>Développeur déjà enregistré</span>
+			{% endif %}
+			
+			{{ include('admin/admin_developpeurs/_form.html.twig') }}
 
-    {{ include('admin/admin_developpeurs/_form.html.twig') }}
-
-    <a href="{{ path('admin.developpeurs') }}">back to list</a>
-    </section>
+			
+		</section>
+	</main>
 {% endblock %}

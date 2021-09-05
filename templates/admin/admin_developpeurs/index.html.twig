@@ -4,8 +4,10 @@
 {% endblock %}
 
 {% block body %}
+<main>
 	<section>
-
+		<h1>Développeur index</h1>
+		<a href="{{ path('admin.developpeurs.new') }}" class="valider">Ajouter developpeur</a>
 		<table class="table">
 			<thead>
 				<tr>
@@ -21,7 +23,7 @@
 						<td>{{ developpeur.libelle }}</td>
 						<td>
 							
-							<a href="{{ path('admin.developpeurs.edit', {'id': developpeur.id}) }}">edit</form>
+							<a href="{{ path('admin.developpeurs.edit', {'id': developpeur.id}) }}" class="modifier">Modifier</a>
 							{% include "admin/admin_developpeurs/_delete_form.html.twig" %}
 						</td>
 					</tr>
@@ -33,6 +35,7 @@
 			</tbody>
 		</table>
 
-		<a href="{{ path('admin.developpeurs.new') }}">Create new</a>
+		
 	</section>
+</main>
 {% endblock %}

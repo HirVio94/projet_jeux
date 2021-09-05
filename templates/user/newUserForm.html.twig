@@ -1,0 +1,90 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello UserController!
+{% endblock %}
+{% block javascripts %}
+	<script src="/js/newUserValidation.js"></script>
+{% endblock %}
+
+{% block body %}
+	<div id="app"></div>
+	{% if page is defined %}
+		<input type="hidden" name="page" id="page" value={{page}}/>
+	{% endif %}
+	<main id="main_new_user">
+		<h2>Créer un compte</h2>
+		<form action={{ path('user.newUser') }} method="POST">
+			<div id="form_container">
+				<div id="form_authentification">
+					<div class="form_infos_authentifications">
+
+						<div id="form_username">
+							<label for="id_username" class="requis">Nom utilisateur</label>
+							<input name="username" id="id_username" type="text">
+						</div>
+						<div>
+							<p id="error_username_exist" class="error">Nom utilisateur déjà utilisé</p>
+							<p id="error_username_vide" class="error">Nom utilisateur requis</p>
+						</div>
+
+
+					</div>
+					<div class="form_infos_authentifications">
+
+						<div id="form_email">
+							<label for="id_email" class="requis">Email</label>
+							<input id="id_email" name="email" type="text">
+						</div>
+						<div>
+							<p id="error_email_vide" class="error">Email requis</p>
+							<p id="error_email" class="error">Email non conforme, exemple email attendu : abc@yahoo.fr</p>
+						</div>
+
+					</div>
+
+					<div class="form_infos_authentifications">
+
+						<div id="form_password">
+							<label for="id_password" class="requis">Mot de passe</label>
+							<input id="id_password" name="password" type="password">
+						</div>
+						<div>
+							<p id="error_password_vide" class="error">Mot de passe requis</p>
+							<p id="error_password_insuffisant" class="error">Mot de passe doit contenir une majuscule et un chiffre et doit être composé de 8 caractère minimum</p>
+						</div>
+					</div>
+
+					<div class="form_infos_authentifications">
+
+						<div id="form_password_confirm">
+							<label for="id_confirmer_password" class="requis">Confirmer mot de passe</label>
+							<input id="id_confirmer_password" name="confirmer_password" type="password">
+						</div>
+						<div>
+							<p id="error_champs_different_password" class="error">Ce champs doit correspondre au champs mot de passe</p>
+						</div>
+
+					</div>
+				</div>
+				<div id="form_infos_option">
+					<div>
+						<label for="id_nom">Nom</label>
+						<input id="id_nom" name="nom" type="text">
+					</div>
+					<div>
+						<label for="id_prenom">Prénom</label>
+						<input id="id_prenom" name="prenom" type="text">
+					</div>
+					<div>
+						<label for="id_date_naissance">Date de naissance</label>
+						<input id="id_date_naissance" name="date_naissance" type="date">
+					</div>
+				</div>
+			</div>
+
+
+			<button type="submit">Valider</button>
+		</form>
+	</main>
+
+{% endblock %}

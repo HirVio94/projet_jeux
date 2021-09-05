@@ -1,15 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Developpeurs{% endblock %}
+{% block title %}Modifier developpeur{% endblock %}
 
 {% block body %}
+<main>
 <section>
-    <h1>Edit Developpeurs</h1>
-
-    {{ include('admin/admin_developpeurs/_form.html.twig', {'button_label': 'Update'}) }}
-
-    <a href="{{ path('admin.developpeurs') }}">back to list</a>
-
-    {{ include('admin/admin_developpeurs/_delete_form.html.twig') }}
+    <h1>Modifier developpeur</h1>
+    <a href="{{ path('admin.developpeurs') }}" class="valider">Retour</a>
+    {{ include('admin/admin_developpeurs/_form.html.twig')}}
 </section>
+</main>
 {% endblock %}

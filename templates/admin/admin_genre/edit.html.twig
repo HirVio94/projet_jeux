@@ -1,16 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Genres{% endblock %}
+{% block title %}Modifier genre{% endblock %}
 
 {% block body %}
+<main>
     <section>
-    <h1>Edit Genres</h1>
-
+    <h1>Modifier genre</h1>
+    <a href="{{ path('admin.genre') }}" class="valider">Retour</a>
     {{ include('admin/admin_genre/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('admin.genre') }}">back to list</a>
-
-    {{ include('admin/admin_genre/_delete_form.html.twig') }}
-
     </section>
+</main>
 {% endblock %}
