@@ -12,9 +12,14 @@ class ListeAvis extends React.Component{
     componentDidMount(){
         this.setState({listeAvis: this.props.listeAvis});
     }
-
+    componentDidUpdate(){
+        if(this.props.listeAvis.length != this.state.listeAvis.length){
+            this.setState({listeAvis: this.props.listeAvis});
+        }
+    }
     render(){
         console.log('listeAvis', this.state.listeAvis);
+        console.log('props', this.props);
         return(
             <div className="avis_liste_item">
                 

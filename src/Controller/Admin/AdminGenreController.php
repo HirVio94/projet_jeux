@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\Genres;
 use App\Form\GenresType;
 use App\Repository\GenresRepository;
+use App\Repository\JeuxRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,7 +23,8 @@ class AdminGenreController extends AbstractController
     {
         return $this->render('admin/admin_genre/index.html.twig', [
             'genres' => $genresRepository->findAll(),
-            'section' => 'administration'
+            'section' => 'administration',
+            'errorDelete' => false
         ]);
     }
 
@@ -38,11 +40,11 @@ class AdminGenreController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager = $this->getDoctrine()->getManager();
             $genreDb = $genresRepository->findOneBy(['libelle_genre' => $genre->getLibelle()]);
-            if(!$genreDb){
+            if (!$genreDb) {
                 $entityManager->persist($genre);
                 $entityManager->flush();
                 return $this->redirectToRoute('admin.genre', [], Response::HTTP_SEE_OTHER);
-            }else{
+            } else {
                 return $this->renderForm('admin/admin_genre/new.html.twig', [
                     'genre' => $genre,
                     'form' => $form,
@@ -50,9 +52,6 @@ class AdminGenreController extends AbstractController
                     'error' => true
                 ]);
             }
-            
-
-            
         }
 
         return $this->renderForm('admin/admin_genre/new.html.twig', [
@@ -98,14 +97,35 @@ class AdminGenreController extends AbstractController
     /**
      * @Route("/{id}", name="admin.genre.delete", methods={"POST"})
      */
-    public function delete(Request $request, Genres $genre): Response
+    public function delete(Request $request, Genres $genre, JeuxRepository $jeuxRepository, GenresRepository $genresRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$genre->getId(), $request->request->get('_token'))) {
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->remove($genre);
-            $entityManager->flush();
+        $genreToDelete = $genre;
+        $jeux = $jeuxRepository->findAllAndAllFields();
+        $genresUsed = [];
+        foreach ($jeux as $jeu) {
+            $genres = $jeu->getGenre();
+            foreach ($genres as $genre) {
+                if (!in_array($genre->getLibelle(), $genresUsed)) {
+                    $genresUsed[] = $genre->getLibelle();
+                }
+            }
+        }
+        if (!in_array($genreToDelete->getLibelle(), $genresUsed)) {
+            if ($this->isCsrfTokenValid('delete' . $genreToDelete->getId(), $request->request->get('_token'))) {
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->remove($genreToDelete);
+                $entityManager->flush(); 
+                return $this->redirectToRoute('admin.genre', [], Response::HTTP_SEE_OTHER);
+            }
+        }else{
+            return $this->render('admin/admin_genre/index.html.twig', [
+                'genres' => $genresRepository->findAll(),
+                'section' => 'administration',
+                'errorDelete' => true
+            ]);
         }
 
-        return $this->redirectToRoute('admin.genre', [], Response::HTTP_SEE_OTHER);
+
+       
     }
 }

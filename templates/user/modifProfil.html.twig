@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello UserController!
+{% block title %}Modifier mon profil
 {% endblock %}
 
 {% block body %}
@@ -9,35 +9,37 @@
 		<input type="hidden" name="page" id="page" value={{page}}/>
 	{% endif %}
 
-	<main>
-		<h1>Mon profil edit</h1>
-		<form action={{path('user.modifProfil', {id: app.user.id})}} method="POST" id="form_profil">
+	<main id="profil-user">
+		<h1>Modifier mon profil</h1>
+		<form action={{path('user.modifProfil', {id: app.user.id} )}} method="POST" id="form_profil">
 			<div>
 				<div>
-					<label for="username">Nom utilisateur</label>
-					<input type="text" id="username" name="username" value={{app.user.username}}>
+					<div>
+						<label for="username" readonly>Nom utilisateur</label>
+						<input type="text" id="username" name="username" value={{app.user.username}}  readonly>
+					</div>
+					<div>
+						<label for="email">Email</label>
+						<input type="text" id="email" name="email" value={{app.user.email}}  readonly>
+					</div>
 				</div>
 				<div>
-					<label for="email">Email</label>
-					<input type="text" id="email" name="email" value={{app.user.email}}>
+					<div>
+						<label for="nom">Nom</label>
+						<input type="text" id="nom" name="nom" value={{app.user.nom}}>
+					</div>
+					<div>
+						<label for="prenom">Prénom</label>
+						<input type="text" id="prenom" name="prenom" value={{app.user.prenom}}>
+					</div>
+					<div>
+						<label for="date_naissance">Date de naissance</label>
+						<input type="date" id="date_naissance" name="date_naissance" {% if app.user.dateNaissance %} value={{app.user.dateNaissance|date('Y-m-d')}} {% endif %}>
+					</div>
 				</div>
 			</div>
-			<div>
-				<div>
-					<label for="nom">Nom</label>
-					<input type="text" id="nom" name="nom" value={{app.user.nom}}>
-				</div>
-				<div>
-					<label for="prenom">Prénom</label>
-					<input type="text" id="prenom" name="prenom" value={{app.user.prenom}}>
-				</div>
-				<div>
-					<label for="date_naissance">Date de naissance</label>
-					<input type="date" id="date_naissance" name="date_naissance" {% if app.user.dateNaissance %} value={{app.user.dateNaissance|date('Y-m-d')}}{% endif %}
-					 >
-				</div>
-			</div>
-			<button type="submit">Mettre à jour profil</button>
+
+			<button type="submit" class="btn-blue">Mettre à jour profil</button>
 		</form>
 
 

@@ -3,9 +3,20 @@ body{
 }
 nav{
     background-color: black;
+    display: flex !important;
+    flex-direction: row !important;
+}
+nav ul li a{
+    text-decoration: none;
+    color: black;
+    width: 100%;
+    height: 100%;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
 }
 div#div_header_container{
-    display: flex;
+    display: flex !important;
     flex-direction: row;
     width: 40%;
     justify-content: flex-end;
@@ -79,13 +90,6 @@ section table a{
     border-radius: 5px;
     color: black;
 }
-a.modifier{
-    background-color: lightskyblue;
-
-}
-a.supprimer{
-    background-color: red;
-}
 
 section form.form_admin{
     min-height: 400px;
@@ -128,10 +132,11 @@ section form textarea{
     margin: 5px 0 5px 0;
 }
 .updated{
-    background-color: seagreen;
+    background-color: rgba(0, 255, 64, 0.363);
 }
 .deleted{
-    background-color: red;
+    background-color: rgba(255, 0, 0, 0.37);
+    
 }
 .modifier, .supprimer, .valider, .ajouter{
     border: none;

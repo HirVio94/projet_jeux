@@ -4,6 +4,12 @@
 
 {% block body %}
 <main>
+    {% if errorDelete %}
+        <div class="deleted">
+            <p >Impossible de supprimer ce genre, il est actuellement assigné à un ou plusieurs jeux</p>
+        </div>
+    {% endif %}
+    
     <section>
     <h1>Genres index</h1>
     <a href="{{ path('admin.genre.new') }}" class="ajouter">Ajouter un genre</a>

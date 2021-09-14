@@ -8,15 +8,15 @@ class ListeJeuxItem extends React.Component {
         }
     }
     componentDidMount() {
-        this.setState({ jeuxItem: this.props.jeuxItem }, ()=>{
+        this.setState({ jeuxItem: this.props.jeuxItem }, () => {
             this.formatDate();
         })
     }
 
-    verifJeuNoteMoyenne(){
-        if(this.state.jeuxItem.noteMoyenne){
+    verifJeuNoteMoyenne() {
+        if (this.state.jeuxItem.noteMoyenne) {
             return <span>{this.state.jeuxItem.noteMoyenne} / 20</span>
-        }else{
+        } else {
             return <span>Aucune note enregistrée</span>
         }
     }
@@ -45,16 +45,22 @@ class ListeJeuxItem extends React.Component {
             )
         }
     }
-    formatDate(){
+    formatDate() {
         let date = this.state.jeuxItem.date_sortie.split('-');
-        date = date[2] +  '-' + date[1] + '-' + date[0];
+        date = date[2] + '-' + date[1] + '-' + date[0];
         let jeu = this.state.jeuxItem;
         jeu.date_sortie = date;
-        this.setState({jeuxItem: jeu});
+        this.setState({ jeuxItem: jeu });
     }
 
-    handleClick(){
+    handleClick() {
         let jeuxItem = this.state.jeuxItem;
+        let jeuxRecommende = $('#list_jeux_recommende')[0];
+        let button = $('#display_jeux_recommende')[0];
+        let jeux = $('#jeux_avis')[0];
+        jeuxRecommende.style.display = 'none';
+        button.innerHTML = 'Jeux recommendés';
+        jeux.style.display = 'flex';
         this.props.callback(jeuxItem);
     }
     render() {

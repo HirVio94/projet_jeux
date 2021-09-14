@@ -10,6 +10,11 @@ class ListeAvisItem extends React.Component{
     componentDidMount(){
         this.setState({avis: this.props.avis});
     }
+    componentDidUpdate(){
+        if(this.state.avis.id != this.props.avis.id){
+            this.setState({avis: this.props.avis});
+        }
+    }
     render(){
         // console.log('listAvisItem',this.state.avis);
         return(

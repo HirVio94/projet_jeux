@@ -13,6 +13,12 @@ class ListeItem extends React.Component{
 
     handleClick(){
         window.history.replaceState(null, '', '/');
+        let nav = $('nav')[0];
+        let svg = $('#menu')[0];
+        if( window.getComputedStyle(nav.firstChild).flexDirection == 'column' && window.getComputedStyle(nav).display == 'flex'){
+            nav.style.display = 'none';
+            svg.style.color = 'white';
+        }
         this.props.callback(this.state.item);
 
     }

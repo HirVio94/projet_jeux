@@ -40,14 +40,6 @@ if(filter_input(INPUT_GET, 'idGenre')){
         }
         
     }
-    //     if($dao->getJeuxByPlatformeName($plateforme)){
-    //         $jeux = $dao->getJeuxByPlatformeName($plateforme);
-    //     }else{
-    //         $jeux = $dao->getJeux();
-    //     }
-    // }else{
-    //     $jeux = $dao->getJeux();
-    // }
     
 }
 

@@ -55,7 +55,7 @@ class JeuxFocus extends React.Component {
         if (this.state.jeu.id) {
             let jeuxRecommendes = this.state.jeuxRecommendes;
             this.state.jeu.genres.map(genre => {
-                axios.get('http://localhost:8001/GetJeux.php?idGenre=' + genre.id).then((res) => {
+                axios.get('http://localhost:8001/GetJeux.php?idGenre=' + genre.id + '&limit=' + 5).then((res) => {
                     // console.log('jeuxRecommende', res.data);
                     res.data.map(data => {
 
@@ -121,26 +121,30 @@ class JeuxFocus extends React.Component {
             return (
                 <div>
                     <button onClick={this.displayForm} id="button_donner_avis">Donner son avis</button>
+
                     <form action="#" id="avis_client_form" method="POST">
                         {/* <input type="hidden" name="id_user" value={this.state.user.id} />
                         <input type="hidden" name="id_jeux" value={this.state.jeu.id} /> */}
+                        <p className="error" id="error_avis">Votre avis doit être composé d'un message et d'un note</p>
+                        <div>
+                            <div id="textarea_message">
+                                <label htmlFor="id_message">Message</label>
+                                <textarea id="id_message" name="message"></textarea>
+                            </div>
+                            <div id="select_note">
+                                <label>Note</label>
+                                <select name="note" id="id_note">
+                                    {notes.map(note => {
+                                        return <option value={note}>{note}</option>
+                                    })}
+                                </select>
+                            </div>
 
-                        <div id="textarea_message">
-                            <label htmlFor="id_message">Message</label>
-                            <textarea id="id_message" name="message"></textarea>
+
+
+                            <button type="button" onClick={this.addAvis.bind(this)}>Ajouter</button>
                         </div>
-                        <div id="select_note">
-                            <label>Note</label>
-                            <select name="note" id="id_note">
-                                {notes.map(note => {
-                                    return <option value={note}>{note}</option>
-                                })}
-                            </select>
-                        </div>
 
-
-
-                        <button type="button" onClick={this.addUser.bind(this)}>Ajouter</button>
                     </form>
                 </div>
             )
@@ -157,6 +161,8 @@ class JeuxFocus extends React.Component {
         let form = document.getElementById('avis_client_form');
         let displayForm = getComputedStyle(form).display;
         let button = event.target;
+        let message = $('#id_message')[0];
+        let note = $('#id_note')[0].firstChild;
         button.innerHTML = 'Annuler';
         // console.log(button);
         // console.log('form_avis_client style', getComputedStyle(form).display);
@@ -165,34 +171,69 @@ class JeuxFocus extends React.Component {
         } else {
             form.style.display = 'none';
             button.innerHTML = 'Donner son avis';
+            message.value = '';
+            note.selected = true;
         }
 
     }
-    addUser() {
-        let message = $('#id_message')[0].value;
-        let note = $('#id_note')[0].value;
-        if (message.length > 0 && note != '') {
+    addAvis() {
+        let message = $('#id_message')[0];
+        let note = $('#id_note')[0];
+        let messageError = $('#error_avis')[0];
+        let button = $('#button_donner_avis')[0];
+        if (message.value.length > 0 && note.value != '') {
             let data = {
                 jeuxId: this.state.jeu.id,
                 userId: this.state.user.id,
-                message: message,
-                note: note
+                message: message.value,
+                note: note.value
             }
             // console.log('data', data);
             axios.post('http://localhost:8001/AddAvis.php', data).then(res => {
                 // console.log('res', res);
-                this.getAvis();
                 let form = document.getElementById('avis_client_form');
                 form.style.display = 'none';
+                messageError.style.display = 'none';
+                message.value = '';
+                message.innerHTML = '';
+                note.firstChild.selected = true;
+                button.innerHTML = 'Donner son avis';
+                this.getAvis();
+                
+                
             })
+        } else {
+            
+            messageError.style.display = 'block';
         }
 
+    }
+    displayJeuxRecommende(event) {
+        let jeuxRecommende = $('#list_jeux_recommende')[0];
+        let button = event.target;
+        let jeux = $('#jeux_avis')[0];
+        let displayJeuxRecommende = window.getComputedStyle(jeuxRecommende).display;
+        console.log('button.value', button.innerHTML);
+        if (displayJeuxRecommende == 'flex') {
+            jeuxRecommende.style.display = 'none';
+            button.innerHTML = 'Jeux recommandés';
+            jeux.style.display = 'flex';
+            
+
+        } else {
+            jeuxRecommende.style.display = 'flex';
+            button.innerHTML = 'Masquer les jeux recommandés';
+            jeux.style.display = 'none';
+
+            
+        }
     }
     render() {
         return (
 
 
             <div id="main_jeux_focus">
+                <button id="display_jeux_recommende" className="btn-blue" onClick={this.displayJeuxRecommende}>Jeux recommendé</button>
                 <div id="jeux_avis">
                     {this.verifJeu()}
                     <div id="avis_user">
@@ -217,7 +258,6 @@ class JeuxFocus extends React.Component {
 
 
 }
-
 
 
 export default JeuxFocus;

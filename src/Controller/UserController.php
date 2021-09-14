@@ -36,16 +36,23 @@ class UserController extends AbstractController
     {
     }
     /**
-     * Undocumented function
+     * 
      * @Route("/user/newUser", name="user.newUser")
      * @param Request $request
      * @return Response
      */
+
+     /**
+      * @param Request $request
+      * @param UserRepository $userRepository
+      * @return Response
+      */
     public function newUser(Request $request, UserRepository $userRepository): Response
     {
         if ($request->getMethod() == 'POST') {
             $user = new User();
             $this->setUser($user, $request);
+            $user->setRoles(['ROLE_CLIENT']);
             $userRepository->newUser($user);
 
             return $this->redirectToRoute('home');
@@ -86,7 +93,13 @@ class UserController extends AbstractController
             'page' => 'modifProfil'
         ]);
     }
-
+    /**
+     * Permet de construire l'objet User
+     *
+     * @param User $user
+     * @param Request $request
+     * @return void
+     */
     private function setUser(User $user, Request $request){
         $userForm = $request->request;
         $username = $userForm->get('username');
@@ -100,6 +113,6 @@ class UserController extends AbstractController
             $user->setDateNaissance($date);
         }
 
-        $user->setUsername($username)->setEmail($email)->setPassword($password)->setNom($nom)->setPrenom($prenom)->setRoles(['ROLE_CLIENT']);
+        $user->setUsername($username)->setEmail($email)->setPassword($password)->setNom($nom)->setPrenom($prenom);
     }
 }
